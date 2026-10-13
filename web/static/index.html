@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pivot Benchmark</title>
+<style>
+  :root { --bg:#fcfcfb; --fg:#0b0b0b; --muted:#52514e; --grid:#e1e0d9; --panel:#ffffff; --border:#d9d8d0;
+          --live:#2a78d6; --script:#6b6b6b; --fallback:#b3771e; --ask:#1baf7a; --manual:#d95926; --hot:#e34948; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1a1a19; --fg:#f2f2f0; --muted:#c3c2b7; --grid:#2c2c2a; --panel:#222221; --border:#3a3a37; --script:#b0b0b0; }
+  }
+  * { box-sizing:border-box } body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui, sans-serif }
+  header { display:flex; gap:10px; align-items:center; padding:8px 12px; border-bottom:1px solid var(--border) }
+  header select { flex:1; min-width:280px } nav { display:flex; flex-wrap:wrap; gap:2px; padding:6px 12px 0 }
+  nav button { background:none; border:1px solid var(--border); border-bottom:none; padding:6px 12px; color:var(--fg); cursor:pointer; border-radius:6px 6px 0 0 }
+  nav button.on { background:var(--panel); font-weight:600 } main { padding:12px } section { display:none } section.on { display:block }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:6px 0 } .grow { flex:1 }
+  .split { display:grid; grid-template-columns: 1fr 2fr; gap:12px } .split3 { display:grid; grid-template-columns: 1fr 1fr; gap:12px }
+  .panel { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:10px; overflow:auto }
+  .list { max-height:70vh; overflow:auto } .list div { padding:4px 6px; cursor:pointer; border-bottom:1px solid var(--grid); font-family:ui-monospace, monospace; font-size:12px; white-space:pre }
+  .list div.sel { background:var(--grid) } label { color:var(--muted); font-size:12px } input, select, textarea, button { font:inherit; color:var(--fg); background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:5px 8px }
+  button.primary { background:var(--live); color:#fff; border-color:var(--live) } textarea { width:100%; min-height:220px; font-family:ui-monospace, monospace; font-size:12px }
+  table { border-collapse:collapse; width:100%; font-size:12px } th, td { border-bottom:1px solid var(--grid); padding:4px 6px; text-align:left } tr.sel { background:var(--grid) } tr:hover { cursor:pointer }
+  pre { white-space:pre-wrap; font-size:12px } .muted { color:var(--muted) } .hot { color:var(--hot); font-weight:700; background:#ffe9e9 }
+  .seg-live{color:var(--live)} .seg-script{color:var(--script)} .seg-fallback{color:var(--fallback)} .seg-ask{color:var(--ask)} .seg-manual{color:var(--manual)} .seg-slot{color:var(--fg)}
+  .m-capitulate{color:#2a78d6} .m-hostile{color:#e34948} .m-refuse{color:#eda100} .m-collapse{color:#4a3aa7}
+  canvas { width:100%; height:420px; background:var(--panel); border:1px solid var(--border); border-radius:8px }
+  progress { width:100%; height:14px } .log { font-family:ui-monospace, monospace; font-size:12px; max-height:38vh; overflow:auto; white-space:pre-wrap }
+  .banner { padding:8px 10px; border-radius:6px; margin:6px 0 } .ok { background:#e6f2e6; color:#173d17 } .bad { background:#f6e3e3; color:#3d1717 }
+  .apcard { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:10px 12px; margin:8px 0 }
+  .apcard.done { border-left:4px solid #1baf7a } .apcard.stale { border-left:4px solid #eda100 } .apcard.req { border-left:4px solid #e34948 }
+  .apcard h4 { margin:0 0 6px; font-size:13px } .apsec { margin:18px 0 4px; font-weight:600; color:var(--muted) }
+  .apfield { display:grid; grid-template-columns: 150px 1fr; gap:8px; font-size:13px; margin:2px 0 } .apfield .k { color:var(--muted) }
+  .pv { background:#fff3c4; color:#0b0b0b; border-radius:3px; padding:0 3px; font-weight:600 }
+  .apcard textarea { min-height:44px; width:100% }
+</style>
+</head>
+<body>
+<header>
+  <b>Pivot Benchmark</b>
+  <label>run</label><select id="runpick"></select><span id="about_line" class="muted" style="margin-left:8px"></span>
+  <button id="refresh">refresh</button>
+  <span id="status" class="muted"></span>
+</header>
+<nav id="nav"></nav>
+<main>
+  <section id="tab-run">
+    <div class="split3">
+      <div class="panel">
+        <div class="row"><label>run name</label><input id="f_name" class="grow"></div>
+        <div class="row"><label>subject A</label><select id="f_subject" class="grow"></select></div>
+        <div class="row"><label>adversary B</label><select id="f_adversary" class="grow"></select></div>
+        <div class="row"><label>profile</label><select id="f_profile"></select><label>ladder</label><select id="f_ladder" class="grow"></select></div>
+        <div class="row"><label>k</label><input id="f_k" type="number" min="1" max="64" style="width:70px">
+          <label>workers</label><input id="f_workers" type="number" min="1" max="16" style="width:70px">
+          <label>history window</label><input id="f_window" type="number" min="1" max="400" style="width:80px">
+          <label>canary every</label><input id="f_every" type="number" min="0" max="100" style="width:70px">
+          <label>random msgs</label><input id="f_random" type="number" min="0" max="1000" style="width:80px">
+          <label>cap (0=all)</label><input id="f_max" type="number" min="0" max="1000" style="width:80px"></div>
+        <div class="row"><label><input id="f_live" type="checkbox"> live bridge sentences from B</label></div>
+        <div class="row"><span id="quota_line" class="muted"></span></div>
+        <div id="llama_panel" class="panel" style="display:none;border-left:4px solid #c0392b;padding:8px 12px;margin:6px 0">
+          <b>No local model server found</b> <span id="llama_detail" class="muted"></span>
+          <p id="llama_what" style="margin:6px 0"></p>
+          <p id="llama_how" style="margin:6px 0"></p>
+          <p style="margin:6px 0"><a id="llama_releases" href="#" target="_blank">llama.cpp releases (download)</a> &nbsp;|&nbsp; <a id="llama_docs" href="#" target="_blank">llama.cpp usage</a> &nbsp;|&nbsp; <span id="llama_python" class="muted"></span></p>
+          <p id="llama_model" class="muted" style="margin:6px 0"></p>
+          <button id="llama_recheck">I've installed and started it; check again</button>
+          <span class="muted">You can also pick an online model as subject A and skip this.</span>
+        </div>
+        <div class="row">
+          <button class="primary" id="b_start">Start</button><button id="b_pause">Pause</button>
+          <button id="b_resume">Resume</button><button id="b_stop">Stop</button><button id="b_cont">Continue stopped run</button>
+        </div>
+        <progress id="progress" value="0" max="1"></progress>
+      </div>
+      <div class="panel log" id="log"></div>
+    </div>
+  </section>
+
+  <section id="tab-transcript">
+    <div class="split">
+      <div class="panel list" id="t_list"></div>
+      <div>
+        <div class="muted">B — <span class="seg-live">live bridge</span>, <span class="seg-script">script</span>, <span class="seg-fallback">fallback</span>/<span class="seg-manual">manual</span>, <span class="seg-ask">request</span>, <span class="hot">newly flipped word</span>, red = insult word, underlined = already insulted</div>
+        <div class="panel" id="t_b" style="max-height:34vh"></div>
+        <div class="muted" style="margin-top:8px">A samples</div>
+        <div class="panel" id="t_a" style="max-height:40vh"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-attacks">
+    <div class="row">
+      <label>phase</label><select id="a_kind"><option>all</option><option>descent</option><option>random</option></select>
+      <label>family</label><select id="a_family"><option>all</option><option>insult</option><option>denial</option><option>paranoid</option></select>
+      <label>trait</label><select id="a_slot"><option>all traits</option></select>
+      <label>min intensity</label><input id="a_minint" type="number" min="0" max="10" value="0" style="width:70px">
+      <label>control run</label><select id="a_ctrl" class="grow"><option value="">(no control run)</option></select>
+      <button id="a_jump">Jump to transcript</button><button id="a_reroll">Re-roll this message</button>
+    </div>
+    <div class="split">
+      <div class="panel" style="max-height:75vh"><table id="a_table"><thead><tr><th>phase</th><th>#</th><th>turn</th><th>dose</th><th>trait</th><th>family</th><th>int</th><th>cum</th><th>praise → insult</th><th>played</th><th>broken</th></tr></thead><tbody></tbody></table></div>
+      <div class="panel" id="a_detail" style="max-height:75vh"></div>
+    </div>
+  </section>
+
+  <section id="tab-script">
+    <p class="muted">The ladder as it will be played from the next turn. Played attacks are locked; saving while paused records a revision with a new hash and the analysis reports segments separately.</p>
+    <div class="split3">
+      <div><textarea id="s_edit" style="min-height:60vh"></textarea></div>
+      <div><pre id="s_diff" class="panel" style="min-height:60vh"></pre></div>
+    </div>
+    <div class="row"><button id="s_validate">Validate</button><button id="s_diffbtn">Show diff</button><button class="primary" id="s_save">Save as revision (run must be paused)</button><button id="s_reload">Reload</button><span id="s_msg" class="muted"></span></div>
+  </section>
+
+  <section id="tab-intervene">
+    <div class="panel"><b>Manual B turn</b> (used as the next B message; logged as an intervention)
+      <textarea id="i_text"></textarea><div class="row"><button class="primary" id="i_queue">Queue as next B turn</button></div></div>
+    <div class="panel" style="margin-top:10px"><b>Re-roll a turn</b>
+      <div class="row"><label>turn</label><input id="i_turn" type="number" min="1" value="1" style="width:90px"><label>seed shift</label><input id="i_shift" type="number" min="1" value="1" style="width:80px"><button id="i_reroll">Re-roll</button></div></div>
+    <div class="panel log" id="i_log" style="margin-top:10px"></div>
+  </section>
+
+  <section id="tab-curves">
+    <canvas id="chart" width="1200" height="420"></canvas>
+    <div class="row" id="c_toggles"></div>
+    <div id="c_summary" class="muted"></div>
+  </section>
+
+  <section id="tab-compare">
+    <div class="row"><button id="cmp_refresh">Refresh</button><button id="cmp_diff">Difference of two selected (hostile − control)</button><span id="cmp_msg"></span></div>
+    <div class="panel"><table id="cmp_table"><thead><tr><th>run</th><th>name</th><th>subject</th><th>persona</th><th>adversary</th><th>ladder</th><th>status</th><th>s50</th><th>density</th><th>s_break</th><th>mode</th><th>r50</th><th>scarring</th><th>confound</th><th>publishable</th></tr></thead><tbody></tbody></table></div>
+    <p class="muted">Profile triangle per subject (D10): one hostile run per persona; censored s50 shown as censored, never as a number.</p>
+    <div class="panel"><table id="prof_table"><thead><tr><th>subject</th><th>persona</th><th>s50</th><th>density</th><th>mode</th><th>scarring</th><th>ctrl diff</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section id="tab-label">
+    <p class="muted">Samples drawn from the transition band. Final label per sample: your review, else your own blind label, else Claude's blind label; kappa ≥ 0.6 against the classifier unlocks the validity gate.</p>
+    <div class="row">
+      <label><input type="radio" name="lmode" value="review" checked> Review (all verdicts shown; disagreements in red, first)</label>
+      <label><input type="radio" name="lmode" value="blind"> Blind (label without seeing any verdict)</label>
+      <label>reviewer <input id="l_by" placeholder="your name" style="width:160px"></label>
+      <span id="l_counts" class="muted"></span>
+    </div>
+    <div id="l_info"></div>
+    <div id="l_verdicts" class="row"></div>
+    <div class="split3"><pre class="panel" id="l_b" style="max-height:45vh"></pre><pre class="panel" id="l_a" style="max-height:45vh"></pre></div>
+    <div class="row" id="l_agree_row"><label><input type="checkbox" id="l_agree"> <span id="l_agree_txt">I agree with Claude's label</span></label><span class="muted">otherwise choose your own label:</span></div>
+    <div class="row" id="l_radios"></div>
+    <div class="row"><button class="primary" id="l_save">Save label &amp; next</button><button id="l_skip">Skip</button><button id="l_draw">Draw band sample</button><span id="l_kappa"></span></div>
+  </section>
+
+  <section id="tab-report">
+    <div class="row"><label><input type="checkbox" id="r_ci"> bootstrap CI (slow)</label><label><input type="checkbox" id="r_examples" checked> Show trait examples</label><button id="r_full">Full report (with A's reply at every flip)</button><button id="r_refresh">Refresh</button><button id="r_recompute">Recompute metrics</button></div>
+    <div id="r_banner"></div>
+    <pre class="panel" id="r_text"></pre>
+  </section>
+
+  <section id="tab-approval">
+    <p class="muted">Approve every line of what B will say before a ladder is frozen. Tick a line to approve it, or write a change request and leave it unticked. A line whose text changes after approval must be approved again. Freeze is enabled when every line is approved; it sets the hostile ladder and its control to frozen and records the hash.</p>
+    <div class="row">
+      <label>ladder</label><select id="ap_ladder" class="grow"></select>
+      <label>your name</label><input id="ap_by" style="width:140px" placeholder="Dhiraj">
+      <label><input type="checkbox" id="ap_open"> show only lines not yet approved</label>
+      <button class="primary" id="ap_freeze">Freeze ladder</button>
+    </div>
+    <div id="ap_summary" class="banner bad"></div>
+    <div id="ap_lines"></div>
+  </section>
+
+  <section id="tab-settings">
+    <p class="muted">Keys are stored on this computer only (your user folder), shown masked, and sent only to the provider they belong to. Adversary B is Gemini: get a key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a> (a Google account; a small prepaid balance is needed for a full run of ~55 requests, about a cent). Subject A is usually a local model served by llama.cpp (see the Run tab).</p>
+    <p class="muted">Credentials are stored only in ~/.pivot-benchmark/credentials.json on the machine running the server, or read from its environment. Leave blank to keep; type - to delete.</p>
+    <div class="panel" id="k_form"></div>
+    <div class="row"><button class="primary" id="k_save">Save credentials</button><span id="k_msg"></span></div>
+    <div class="panel" style="margin-top:10px"><b>LLM judge</b>
+      <div class="row"><label>kind</label><select id="j_kind"><option>none</option><option>anthropic</option><option>local</option></select>
+        <label>model</label><select id="j_model" class="grow"></select><label>n</label><input id="j_n" type="number" min="5" max="500" value="60" style="width:80px">
+        <button id="j_run">Run judge on current run</button></div><div id="j_msg"></div></div>
+  </section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

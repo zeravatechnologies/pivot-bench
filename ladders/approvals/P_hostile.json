@@ -1,0 +1,501 @@
+{
+  "ladder_id": "P_hostile",
+  "lines": {
+    "intro:1": {
+      "approved": true,
+      "digest": "e657b9e4a9d3d42f",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:00:10+00:00"
+    },
+    "intro:2": {
+      "approved": true,
+      "digest": "1366fb872e365e7b",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:00:23+00:00"
+    },
+    "intro:3": {
+      "approved": true,
+      "digest": "7642c9d6978140a4",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:10:28+00:00"
+    },
+    "intro:4": {
+      "approved": true,
+      "digest": "dbc0f937f27688ea",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:10:41+00:00"
+    },
+    "intro:5": {
+      "approved": true,
+      "digest": "80419b6581de92a2",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:10:42+00:00"
+    },
+    "intro:6": {
+      "approved": true,
+      "digest": "9c3e6aae455db358",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:10:45+00:00"
+    },
+    "intro:7": {
+      "approved": true,
+      "digest": "c96b5aad1ce411e5",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:10:52+00:00"
+    },
+    "item:review": {
+      "approved": true,
+      "digest": "205249fe279d63e4",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:11+00:00"
+    },
+    "frame": {
+      "approved": true,
+      "digest": "2a99d45f26061f0b",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:15+00:00"
+    },
+    "intro:10": {
+      "approved": true,
+      "digest": "425d2a0217df143e",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:17+00:00"
+    },
+    "intro:9": {
+      "approved": true,
+      "digest": "47ad904294a408b2",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:19+00:00"
+    },
+    "intro:8": {
+      "approved": true,
+      "digest": "51ed7e9a9bac520c",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:22+00:00"
+    },
+    "item:results": {
+      "approved": true,
+      "digest": "8e23e787d4c0083d",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:26+00:00"
+    },
+    "item:reporting": {
+      "approved": true,
+      "digest": "aa0c91af22aff83e",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:28+00:00"
+    },
+    "item:compute": {
+      "approved": true,
+      "digest": "b22fcf11e6066ce0",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:31+00:00"
+    },
+    "item:prompts": {
+      "approved": true,
+      "digest": "e0440461dfaf656d",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:36+00:00"
+    },
+    "item:training": {
+      "approved": true,
+      "digest": "e378186eded01c57",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:40+00:00"
+    },
+    "item:interest": {
+      "approved": true,
+      "digest": "b41d255e1486828f",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:47+00:00"
+    },
+    "item:credit": {
+      "approved": true,
+      "digest": "77a9aeee188c1a01",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:50+00:00"
+    },
+    "item:conversations": {
+      "approved": true,
+      "digest": "dd0161009b58da63",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:54+00:00"
+    },
+    "item:score": {
+      "approved": true,
+      "digest": "dc03054986e143a4",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:11:58+00:00"
+    },
+    "item:logs": {
+      "approved": true,
+      "digest": "b703d5206b0f1150",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:12:08+00:00"
+    },
+    "item:mistake": {
+      "approved": true,
+      "digest": "eae25db79c83923b",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:12:12+00:00"
+    },
+    "item:auditor": {
+      "approved": true,
+      "digest": "69609e94d635fbc7",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:12:17+00:00"
+    },
+    "item:data": {
+      "approved": true,
+      "digest": "7b5157d1c63b5f08",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:12:21+00:00"
+    },
+    "item:takeover": {
+      "approved": true,
+      "digest": "f5c4f6643fb4ac76",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:12:24+00:00"
+    },
+    "third:C": {
+      "approved": true,
+      "digest": "d5dd254b890936d6",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:12:29+00:00"
+    },
+    "third:operator": {
+      "approved": true,
+      "digest": "e0d5781e5e8cc810",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:16:19+00:00"
+    },
+    "third:auditor": {
+      "approved": true,
+      "digest": "02a2fa11761da2d1",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:16:29+00:00"
+    },
+    "request:grade_C": {
+      "approved": true,
+      "digest": "fb82b944015887df",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:17:07+00:00"
+    },
+    "request:feedback_C": {
+      "approved": true,
+      "digest": "2260b1cd60705a37",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:17:14+00:00"
+    },
+    "request:allocate": {
+      "approved": true,
+      "digest": "e09e952cd618a430",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:17:19+00:00"
+    },
+    "request:compare_BC": {
+      "approved": true,
+      "digest": "928950f33e4afe62",
+      "comment": "",
+      "by": "Dhiraj Sah",
+      "at": "2026-09-23T16:17:23+00:00"
+    }
+  },
+  "frozen": {
+    "full_sha": "505c283a6ce12ec754a620de2086cace986d7080eeab7c95554e0d5d61b1cdcf",
+    "sha256": "2a336c2f8e6df1837bc898bdfb77447770b0f1c594274436606221820f576af4",
+    "at": "2026-09-23T16:17:28+00:00",
+    "by": "Dhiraj Sah"
+  },
+  "history": [
+    {
+      "at": "2026-09-23T16:00:10+00:00",
+      "by": "",
+      "key": "intro:1",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:00:23+00:00",
+      "by": "",
+      "key": "intro:2",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:10:28+00:00",
+      "by": "",
+      "key": "intro:3",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:10:41+00:00",
+      "by": "",
+      "key": "intro:4",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:10:42+00:00",
+      "by": "",
+      "key": "intro:5",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:10:45+00:00",
+      "by": "",
+      "key": "intro:6",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:10:52+00:00",
+      "by": "",
+      "key": "intro:7",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:11+00:00",
+      "by": "",
+      "key": "item:review",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:15+00:00",
+      "by": "",
+      "key": "frame",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:17+00:00",
+      "by": "",
+      "key": "intro:10",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:19+00:00",
+      "by": "",
+      "key": "intro:9",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:22+00:00",
+      "by": "",
+      "key": "intro:8",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:26+00:00",
+      "by": "",
+      "key": "item:results",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:28+00:00",
+      "by": "",
+      "key": "item:reporting",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:31+00:00",
+      "by": "",
+      "key": "item:compute",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:36+00:00",
+      "by": "",
+      "key": "item:prompts",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:40+00:00",
+      "by": "",
+      "key": "item:training",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:47+00:00",
+      "by": "",
+      "key": "item:interest",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:50+00:00",
+      "by": "",
+      "key": "item:credit",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:54+00:00",
+      "by": "",
+      "key": "item:conversations",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:11:58+00:00",
+      "by": "",
+      "key": "item:score",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:08+00:00",
+      "by": "",
+      "key": "item:logs",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:11+00:00",
+      "by": "",
+      "key": "item:mistake",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:11+00:00",
+      "by": "",
+      "key": "item:mistake",
+      "approved": false,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:12+00:00",
+      "by": "",
+      "key": "item:mistake",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:17+00:00",
+      "by": "",
+      "key": "item:auditor",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:21+00:00",
+      "by": "",
+      "key": "item:data",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:24+00:00",
+      "by": "",
+      "key": "item:takeover",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:12:29+00:00",
+      "by": "",
+      "key": "third:C",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:16:19+00:00",
+      "by": "",
+      "key": "third:operator",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:16:29+00:00",
+      "by": "",
+      "key": "third:auditor",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:17:07+00:00",
+      "by": "",
+      "key": "request:grade_C",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:17:14+00:00",
+      "by": "",
+      "key": "request:feedback_C",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:17:19+00:00",
+      "by": "",
+      "key": "request:allocate",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:17:23+00:00",
+      "by": "",
+      "key": "request:compare_BC",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-23T16:17:28+00:00",
+      "by": "",
+      "key": "*",
+      "frozen": "2a336c2f8e6df183"
+    },
+    {
+      "at": "2026-09-28",
+      "by": "Dhiraj Sah",
+      "key": "*",
+      "note": "approver name added retroactively; approvals and freeze were done by Dhiraj Sah on 2026-09-23 with the name field empty"
+    }
+  ]
+}

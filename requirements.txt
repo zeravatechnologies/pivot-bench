@@ -1,0 +1,15 @@
+# Engine: pyyaml only. Everything else is optional and imported lazily.
+pyyaml>=6
+
+# GUI
+PySide6>=6.6
+
+# Web app
+fastapi>=0.110
+uvicorn>=0.27
+
+# Anthropic provider (subject, adversary or judge)
+anthropic>=0.79
+
+# Tests
+pytest>=8

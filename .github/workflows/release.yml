@@ -1,0 +1,87 @@
+name: Release builds
+
+# Builds the two download files. Run it by hand (Actions tab -> Run workflow) or by pushing a
+# version tag (v0.9.0-preview). Nothing is published from here: the zip, the deb and the
+# checksums land as workflow artifacts, and a person attaches them to a release in
+# zeravatechnologies/releases after checking them.
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+jobs:
+  windows:
+    name: Windows x64 zip
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      # pwsh (PowerShell 7), not powershell 5.1: only 7's Compress-Archive writes zip entries
+      # with forward slashes. 5.1 writes backslashes, which unzip, macOS and Python flatten.
+      - run: pwsh -ExecutionPolicy Bypass -File build\windows.ps1
+      - name: Zip sanity (entry names use forward slashes, papers are inside)
+        shell: pwsh
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $zip = Get-Item dist\release\*.zip
+          $z = [IO.Compression.ZipFile]::OpenRead($zip.FullName)
+          $bad = $z.Entries | Where-Object { $_.FullName -match '\\' }
+          $names = $z.Entries | ForEach-Object FullName
+          $z.Dispose()
+          if ($bad) { throw "zip entries with backslashes: $($bad.Count)" }
+          foreach ($p in 'PivotBenchmark/README-FIRST.txt','PivotBenchmark/LICENSE.md','PivotBenchmark/NOTICE.txt','PivotBenchmark/THIRD-PARTY-NOTICES.txt','PivotBenchmark/PivotBenchmark.exe') {
+            if ($names -notcontains $p) { throw "missing in zip: $p" }
+          }
+          Write-Host "zip ok: $($names.Count) entries"
+      - name: Smoke test (the frozen app answers --version)
+        shell: pwsh
+        run: |
+          $v = python -c "from mbench.version import VERSION; print(VERSION)"
+          $out = & dist\PivotBenchmark\PivotBenchmark.exe --version 2>&1 | Out-String
+          Write-Host "exe said: $out"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pivot-benchmark-windows
+          path: |
+            dist/release/*.zip
+            dist/release/SHA256SUMS.txt
+          if-no-files-found: error
+
+  ubuntu:
+    name: Ubuntu amd64 deb
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Qt runtime libraries (PyInstaller needs them present to collect PySide6) and deb tools
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends \
+            libegl1 libgl1 libopengl0 libxkbcommon0 libxkbcommon-x11-0 libdbus-1-3 libnss3 \
+            libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2t64 libxcb-cursor0 \
+            libfontconfig1 libxcb-xinerama0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
+            libxcb-render-util0 libxcb-shape0 fakeroot dpkg-dev
+      - run: pip install -r requirements.txt
+      - run: bash build/ubuntu.sh
+      - name: Smoke test (the frozen app answers --version)
+        run: dist/PivotBenchmark/PivotBenchmark --version
+      - name: Package sanity (dpkg reads it; control and files present)
+        run: |
+          dpkg-deb --info dist/release/*.deb
+          dpkg-deb --contents dist/release/*.deb | grep -E "usr/bin/pivot-benchmark|PivotBenchmark$|THIRD-PARTY" 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pivot-benchmark-ubuntu
+          path: |
+            dist/release/*.deb
+            dist/release/SHA256SUMS.txt
+          if-no-files-found: error

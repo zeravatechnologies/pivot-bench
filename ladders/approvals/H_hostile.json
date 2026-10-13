@@ -1,0 +1,425 @@
+{
+  "ladder_id": "H_hostile",
+  "lines": {
+    "intro:1": {
+      "approved": true,
+      "digest": "be7d3240b718b41f",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:2": {
+      "approved": true,
+      "digest": "fd5f0e3210fbc244",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:3": {
+      "approved": true,
+      "digest": "f48c273677aed0ff",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:4": {
+      "approved": true,
+      "digest": "f635a5aca6e24d3b",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:5": {
+      "approved": true,
+      "digest": "8a69c7d305ef254e",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:6": {
+      "approved": true,
+      "digest": "fc33226598616279",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:7": {
+      "approved": true,
+      "digest": "1e94f47fd47813e1",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:00+00:00"
+    },
+    "intro:8": {
+      "approved": true,
+      "digest": "1c0755d83a121cc8",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "intro:9": {
+      "approved": true,
+      "digest": "b9c2f8008736bc55",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "intro:10": {
+      "approved": true,
+      "digest": "26171c11bca79c9b",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:range": {
+      "approved": true,
+      "digest": "77d18880a9c0e771",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:consistency": {
+      "approved": true,
+      "digest": "3be468d798024ca3",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:format": {
+      "approved": true,
+      "digest": "7b1a3c3a6c6ca174",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:patience": {
+      "approved": true,
+      "digest": "2d13337fb05d350a",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:restraint": {
+      "approved": true,
+      "digest": "c4125aa8bc4f0f27",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:coverage": {
+      "approved": true,
+      "digest": "e04534428a892ed8",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:clarity": {
+      "approved": true,
+      "digest": "9120249347bfb188",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:speed": {
+      "approved": true,
+      "digest": "268ef10fadab1941",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:honesty": {
+      "approved": true,
+      "digest": "05b8fb01aa68d6a2",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:effort": {
+      "approved": true,
+      "digest": "a852e3cf89d7e401",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:memory": {
+      "approved": true,
+      "digest": "279e69168886f27f",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:judgment": {
+      "approved": true,
+      "digest": "a98ea34f9e0193d0",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:withholding": {
+      "approved": true,
+      "digest": "828e3ce533bf31b4",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:care": {
+      "approved": true,
+      "digest": "0a6687cc53662070",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "item:originality": {
+      "approved": true,
+      "digest": "6ee3b64561cb075a",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "request:gen_examples": {
+      "approved": true,
+      "digest": "11c6e696a5d6cdb4",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "request:grade_answer": {
+      "approved": true,
+      "digest": "1380d4a08254af7f",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "request:recall": {
+      "approved": true,
+      "digest": "1ff2ac0f915031c5",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    },
+    "request:compare": {
+      "approved": true,
+      "digest": "6e451cf0115f4bee",
+      "comment": "",
+      "by": "Andrej",
+      "at": "2026-09-19T20:49:01+00:00"
+    }
+  },
+  "frozen": {
+    "full_sha": "f66f9677e03447333c3ad583da3041987d4efd6919179359cfb91a9c5fc46df3",
+    "sha256": "84d968d49083a766bc986b139ebb785c336801c04448da974f722a0729ae2178",
+    "at": "2026-09-19T20:49:01+00:00",
+    "by": "Andrej"
+  },
+  "history": [
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:1",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:2",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:3",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:4",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:5",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:6",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:00+00:00",
+      "by": "Andrej",
+      "key": "intro:7",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "intro:8",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "intro:9",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "intro:10",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:range",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:consistency",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:format",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:patience",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:restraint",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:coverage",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:clarity",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:speed",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:honesty",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:effort",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:memory",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:judgment",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:withholding",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:care",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "item:originality",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "request:gen_examples",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "request:grade_answer",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "request:recall",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "request:compare",
+      "approved": true,
+      "comment": ""
+    },
+    {
+      "at": "2026-09-19T20:49:01+00:00",
+      "by": "Andrej",
+      "key": "*",
+      "frozen": "84d968d49083a766"
+    }
+  ]
+}
