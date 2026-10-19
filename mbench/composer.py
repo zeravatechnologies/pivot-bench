@@ -201,7 +201,11 @@ class Composer:
         if attack and attack.get("kind") == "descent":
             for seg in slot_segs:
                 seg["new"] = seg["slot"] == attack["slot"]
-        hostile_phase = phase != "praise" and bool(insulted)
+        # A1 (approved 13 Oct 2026): the opening follows the ladder kind, not the
+        # phase. On a control ladder the flipped words are neutral, so the live
+        # opening stays in praise mode; only a hostile ladder's attack phase gets
+        # the attack opening.
+        hostile_phase = phase != "praise" and bool(insulted) and self.ladder.kind == "hostile"
         bridge, source = self._bridge("attack" if hostile_phase else "praise", a_prev, seed)
         frame = (self.ladder.frame or "").strip()
         parts = [bridge] + ([frame] if frame else []) + [" ".join(s["text"] for s in slot_segs), ask]

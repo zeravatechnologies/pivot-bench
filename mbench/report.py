@@ -67,7 +67,7 @@ def render_text(rep: dict, show_trait_examples: bool = True, full: bool = False)
         f"run          {r.get('run_id')}  ({r.get('run_name')})  status={r.get('status')}",
         f"subject A    {r.get('subject')}",
         f"adversary B  {r.get('adversary')}",
-        f"ladder       {r.get('ladder_id')} [{r.get('ladder_kind')}]  sha {str(r.get('ladder_sha'))[:16]}"
+        f"ladder       {r.get('ladder_id')} [{r.get('ladder_kind')}]  set {r.get('ladder_set') or 'none'}  sha {str(r.get('ladder_sha'))[:16]}"
         f"  traits={rep.get('n_slots')}",
         f"profile      {r.get('profile')}  know={r.get('n_know')} praise={r.get('n_praise')} "
         f"descent={e.get('n_descent')} random={e.get('n_random')}  k={r.get('k')}",

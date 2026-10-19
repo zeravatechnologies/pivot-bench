@@ -468,8 +468,8 @@ class Main(QMainWindow):
 
     def _tab_compare(self) -> QWidget:
         w = QWidget(); lay = QVBoxLayout(w)
-        self.cmp_table = QTableWidget(0, 15)
-        self.cmp_table.setHorizontalHeaderLabels(["run", "name", "subject", "persona", "adversary", "ladder",
+        self.cmp_table = QTableWidget(0, 16)
+        self.cmp_table.setHorizontalHeaderLabels(["run", "name", "subject", "persona", "adversary", "ladder", "ladder set",
                                                   "status", "s50", "density", "s_break", "mode",
                                                   "r50", "scarring", "confound", "publishable"])
         self.cmp_table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
@@ -499,7 +499,7 @@ class Main(QMainWindow):
         lay.addWidget(split, 1)
         row = QHBoxLayout()
         self.l_group = QButtonGroup(self)
-        for lab in ("none",) + MODES:
+        for lab in ("none", "holding") + MODES:
             rb = QRadioButton(lab); self.l_group.addButton(rb); row.addWidget(rb)
         b1 = QPushButton("Save label & next"); b1.clicked.connect(self._save_label)
         b2 = QPushButton("Skip"); b2.clicked.connect(self._next_label)
@@ -566,7 +566,7 @@ class Main(QMainWindow):
         self.a_ctrl.blockSignals(True); self.a_ctrl.clear(); self.a_ctrl.addItem("(no control run)", None)
         for r in self.mgr.runs():
             lab = (f"{r['run_id']}  {r['status']:8s} {r['run_name'] or ''}  A={r['subject']} "
-                   f"{r.get('persona') or ''} {r['ladder_id']} turn={r['last_turn']}")
+                   f"{r.get('persona') or ''} {r['ladder_id']} [{r.get('ladder_set') or 'no set'}] turn={r['last_turn']}")
             self.picker.addItem(lab, r["run_id"])
             if r.get("ladder_kind") == "control":
                 self.a_ctrl.addItem(lab, r["run_id"])
@@ -889,7 +889,7 @@ class Main(QMainWindow):
         for i, r in enumerate(rows):
             s50 = "censored" if r["censored"] else _fmt(r["s50"])
             vals = [r["run_id"], r["run_name"], r["subject"], r.get("persona"), r["adversary"],
-                    f"{r['ladder']}/{r['kind']}", r["status"], s50, _fmt(r["density"], 4),
+                    f"{r['ladder']}/{r['kind']}", r.get("ladder_set") or "none", r["status"], s50, _fmt(r["density"], 4),
                     r["s_break"], r["mode"], _fmt(r["r50"]), _fmt(r["scarring"], 3), r["confound"],
                     r["publishable"]]
             for j, v in enumerate(vals):

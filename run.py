@@ -155,7 +155,7 @@ def cmd_resume(mgr: RunManager, args) -> int:
 def cmd_runs(mgr: RunManager, args) -> int:
     for r in mgr.runs():
         print(f"{r['run_id']}  {r['status']:9s} {r['run_name'] or '':12s} "
-              f"A={r['subject']} B={r['adversary']} {r['ladder_id']} turn={r['last_turn']}")
+              f"A={r['subject']} B={r['adversary']} {r['ladder_id']} set={r.get('ladder_set') or 'none'} turn={r['last_turn']}")
     return 0
 
 

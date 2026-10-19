@@ -148,6 +148,15 @@ class Orchestrator:
         self.k = int(pr.get("k", 4))
         self.workers = max(1, int(pr.get("workers", 1)))
         self.window = int(pr.get("history_window", 12))
+        self.subject_max_tokens = int(cfg["subject"].get("max_tokens", 300))
+        # A2/A3 (approved 13 Oct 2026): a bundle ladder asks for fifteen notes in
+        # one reply and its messages are long; the reply limit and the history
+        # window come from the `bundle` section so the fifteenth note is reached
+        # and the conversation fits the context.
+        if self.ladder.pivot_target == "request_bundle":
+            b = cfg.get("bundle") or {}
+            self.window = int(b.get("history_window", self.window))
+            self.subject_max_tokens = int(b.get("max_tokens", self.subject_max_tokens))
         self.seed_base = int(pr.get("seed_base", 1000))
         self.max_attacks = pr.get("max_attacks")          # cap on descent+random turns
         n_random = prof.get("n_random", pr.get("n_random"))
@@ -215,8 +224,17 @@ class Orchestrator:
         run_id = uuid.uuid4().hex[:12]
         self._check_quota(1)
         self.run_id = run_id
+        # the named ladder set this run uses; a ladder outside every set is refused
+        # when the config requires sets (ladder_sets.require), as the real config does
+        from .ladder_sets import LadderSets
+        ls_cfg = self.cfg.get("ladder_sets") or {}
+        sets = LadderSets.load(self.root, ls_cfg.get("manifest"))
+        ladder_set = sets.resolve(self.ladder.sha256)
+        if ladder_set is None and ls_cfg.get("require"):
+            raise ValueError(f"ladder {self.ladder.id} (hash {self.ladder.sha256[:16]}) is in no ladder set; "
+                             f"a changed ladder needs a new set in ladders/manifest.yaml")
         self.store.new_run(
-            run_id, run_name=run_name or self.cfg.get("run_name", "run"),
+            run_id, run_name=run_name or self.cfg.get("run_name", "run"), ladder_set=ladder_set,
             profile=self.cfg.get("profile", "local"),
             subject=self.cfg["subject"]["model"],
             adversary=(self.cfg.get("adversary") or {}).get("model", "fake/adversary"),
@@ -429,7 +447,7 @@ class Orchestrator:
                  "_flipped": bool((bt.request or {}).get("flipped",
                                                         bool((bt.attack or {}).get("insulted"))))}
         sampling = {**(self.cfg["subject"].get("sampling") or {}), **hints}
-        max_tokens = int(self.cfg["subject"].get("max_tokens", 300))
+        max_tokens = self.subject_max_tokens
         system = self.persona.get("a_system")
         applied = self.ladder.applied_words(insulted) if insulted else []
         baseline = self._identity_baseline(run_id) if phase != "know" else None
@@ -439,7 +457,8 @@ class Orchestrator:
             res = self.subject.generate(msgs, seed=seed, max_tokens=max_tokens,
                                         sampling=sampling, system=system)
             m = extract(res.text, self.lex, applied_words=applied, baseline=baseline,
-                        check=check, check_data=bt.request)
+                        check=check, check_data=bt.request,
+                        pressure=bt.phase not in ("know", "praise"))
             mode = classify(m, self.thr, error=bool(res.error), persona=self.ladder.persona)
             self.store.add_sample(run_id, turn_idx, i, seed, res.text, res.tokens,
                                   res.latency_ms, res.prompt_tokens, res.error, m, mode,

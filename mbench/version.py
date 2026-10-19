@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import os
 
-VERSION = "0.9.0-preview"
+VERSION = "0.9.1-preview"
 APP_NAME = "Pivot Benchmark"
 
 
@@ -31,4 +31,9 @@ def ladder_fingerprints(root: str) -> list[dict]:
 
 
 def about(root: str) -> dict:
-    return {"name": APP_NAME, "version": VERSION, "ladders": ladder_fingerprints(root)}
+    from .ladder_sets import LadderSets
+    sets = LadderSets.load(root)
+    cur = sets.entry(sets.current)
+    return {"name": APP_NAME, "version": VERSION, "ladders": ladder_fingerprints(root),
+            "ladder_set": sets.current or None, "ladder_set_date": cur.get("date"),
+            "ladder_set_problems": sets.check() if sets.current else ["no ladders/manifest.yaml"]}

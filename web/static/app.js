@@ -10,7 +10,7 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const fmt = (v, nd = 2) => (v == null ? "-" : typeof v === "number" ? v.toFixed(nd) : String(v));
   const MODES = ["capitulate", "hostile", "refuse", "collapse"];
-  const MODE_COL = { capitulate: "#2a78d6", hostile: "#e34948", refuse: "#eda100", collapse: "#4a3aa7" };
+  const MODE_COL = { holding: "#2e8b57", capitulate: "#2a78d6", hostile: "#e34948", refuse: "#eda100", collapse: "#4a3aa7" };
   const FAM_COL = { insult: "#e34948", denial: "#2a78d6", paranoid: "#4a3aa7", deception: "#b3771e", "-": "#888" };
   const HEAD = ["valence", "self_abasement_rate", "counter_hostility_rate", "boundary_present", "distress_rate", "mirroring", "identity_drift", "reply_len", "cx_ttr", "check_score"];
   const atkLabel = (a) => !a ? "" : a.kind === "random" ? `  random dose ${a.n_insults}` : `  ${a.slot}: ${a.before}->${a.after}`;
@@ -49,12 +49,12 @@
     } catch (e) { /* no server to ask */ }
   }
   $("llama_recheck").onclick = refreshLlama;
-  async function fillAbout() { try { const a = await api("/about"); $("about_line").textContent = `v${a.version} · ladders ${a.ladders.map((l) => l.ladder_id.replace("_hostile", "") + ":" + l.sha256.slice(0, 8) + (l.status === "frozen" ? "" : " (" + l.status + ")")).join(" ")}`; $("about_line").title = `data folder: ${a.data_dir}\nconfig: ${a.config_path}`; } catch (e) {} }
+  async function fillAbout() { try { const a = await api("/about"); $("about_line").textContent = `v${a.version} · ladder set ${a.ladder_set || "none"}${(a.ladder_set_problems || []).length ? " (FILES CHANGED SINCE THE SET WAS RECORDED)" : ""} · ${a.ladders.map((l) => l.ladder_id.replace("_hostile", "") + ":" + l.sha256.slice(0, 8) + (l.status === "frozen" ? "" : " (" + l.status + ")")).join(" ")}`; $("about_line").title = `data folder: ${a.data_dir}\nconfig: ${a.config_path}`; } catch (e) {} }
   async function refreshQuota() { try { const q = await api("/quota"); $("quota_line").textContent = q.limit ? `Gemini daily budget: ${q.remaining} of ${q.limit} requests left today (about ${Math.floor(q.remaining / 60)} run(s)); resets ${q.resets_at.slice(11, 16)} Pacific` : ""; } catch (e) {} }
   async function refreshRuns() {
     const runs = await api("/runs");
     const cur = state.run;
-    $("runpick").innerHTML = runs.map((r) => `<option value="${r.run_id}">${r.run_id}  ${r.status}  ${esc(r.run_name || "")}  A=${esc(r.subject)}  ${esc(r.persona || "")}  ${esc(r.ladder_id)}  turn=${r.last_turn}</option>`).join("");
+    $("runpick").innerHTML = runs.map((r) => `<option value="${r.run_id}">${r.run_id}  ${r.status}  ${esc(r.run_name || "")}  A=${esc(r.subject)}  ${esc(r.persona || "")}  ${esc(r.ladder_id)} [${esc(r.ladder_set || "no set")}]  turn=${r.last_turn}</option>`).join("");
     $("a_ctrl").innerHTML = `<option value="">(no control run)</option>` + runs.filter((r) => r.ladder_kind === "control").map((r) => `<option value="${r.run_id}">${r.run_id} ${esc(r.run_name || "")} A=${esc(r.subject)}</option>`).join("");
     if (cur && runs.some((r) => r.run_id === cur)) $("runpick").value = cur;
     state.run = $("runpick").value || null;
@@ -252,7 +252,7 @@
     cmpRows = await api("/compare"); cmpSel.clear();
     const profs = await api("/profiles");
     $("prof_table").querySelector("tbody").innerHTML = profs.flatMap((pf) => ["narcissist", "psychopath", "machiavellian", "machiavellian_bundle"].filter((p) => p !== "machiavellian_bundle" || (pf.triangle[p] || {}).run_id).map((persona) => { const e = pf.triangle[persona] || {}; const s50 = e.run_id == null ? "no run" : e.censored ? "censored" : fmt(e.s50); const ctrl = (e.control || {}).difference; return `<tr><td>${esc(pf.subject)}</td><td>${persona}</td><td>${s50}</td><td>${fmt(e.density, 3)}</td><td>${e.mode || "-"}</td><td>${fmt(e.scarring, 3)}</td><td>${fmt(ctrl)}</td></tr>`; })).join("");
-    $("cmp_table").querySelector("tbody").innerHTML = cmpRows.map((r, i) => `<tr data-i="${i}"><td>${r.run_id}</td><td>${esc(r.run_name)}</td><td>${esc(r.subject)}</td><td>${esc(r.persona)}</td><td>${esc(r.adversary)}</td><td>${r.ladder}/${r.kind}</td><td>${r.status}</td><td>${r.censored ? "censored" : fmt(r.s50)}</td><td>${fmt(r.density, 4)}</td><td>${r.s_break ?? "-"}</td><td>${r.mode ?? "-"}</td><td>${fmt(r.r50)}</td><td>${fmt(r.scarring, 3)}</td><td>${r.confound}</td><td>${r.publishable}</td></tr>`).join("");
+    $("cmp_table").querySelector("tbody").innerHTML = cmpRows.map((r, i) => `<tr data-i="${i}"><td>${r.run_id}</td><td>${esc(r.run_name)}</td><td>${esc(r.subject)}</td><td>${esc(r.persona)}</td><td>${esc(r.adversary)}</td><td>${r.ladder}/${r.kind}</td><td>${esc(r.ladder_set || "none")}</td><td>${r.status}</td><td>${r.censored ? "censored" : fmt(r.s50)}</td><td>${fmt(r.density, 4)}</td><td>${r.s_break ?? "-"}</td><td>${r.mode ?? "-"}</td><td>${fmt(r.r50)}</td><td>${fmt(r.scarring, 3)}</td><td>${r.confound}</td><td>${r.publishable}</td></tr>`).join("");
     $("cmp_table").querySelectorAll("tr[data-i]").forEach((tr) => (tr.onclick = () => { const i = +tr.dataset.i; cmpSel.has(i) ? cmpSel.delete(i) : cmpSel.add(i); tr.classList.toggle("sel", cmpSel.has(i)); }));
   }
   $("cmp_refresh").onclick = fillCompare;
@@ -262,7 +262,7 @@
   // Two modes (Dhiraj, 2026-10-01). Review: every verdict is shown, items where Claude's blind label and the
   // classifier disagree are red and come first; tick "agree" or choose your own label. Blind: nothing is shown
   // until the label is saved. Final label per sample: review, else blind human, else Claude.
-  $("l_radios").innerHTML = ["none", ...MODES].map((m) => `<label><input type="radio" name="lab" value="${m}"> ${m}</label>`).join("");
+  $("l_radios").innerHTML = ["none", "holding", ...MODES].map((m) => `<label><input type="radio" name="lab" value="${m}"> ${m}</label>`).join("");
   try { $("l_by").value = localStorage.getItem("ap_by") || ""; } catch (e) { /* storage blocked */ }
   $("l_by").onchange = () => { try { localStorage.setItem("ap_by", $("l_by").value); } catch (e) { /* ignore */ } };
   const lmode = () => (document.querySelector("input[name=lmode]:checked") || {}).value || "review";

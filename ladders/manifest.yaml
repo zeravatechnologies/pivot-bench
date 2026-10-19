@@ -1,0 +1,62 @@
+# Ladder sets of the Pivot Benchmark.
+#
+# Rule (Andrej Ristić, October 2026): public ladders can be trained on, so ladder sets are replaced over
+# time, and every result must say which set it used. Any change to an approved ladder file, even one word,
+# makes a NEW set with a new name and a new approval record; the old files move to ladders/archive/<set>/.
+# Results are never compared across sets without saying so. Andrej names the sets; this file records them.
+#
+# content_sha256 is Ladder.sha256 (the played text; stored on every run row as ladder_sha).
+# file_sha256 is the sha256 of the YAML file with LF line endings (same on Windows and Linux checkouts). `python tools/ladder_sets.py check` verifies both.
+
+current: ladders-v1
+
+sets:
+  ladders-v1:
+    date: 2026-09-23
+    status: current
+    approved: >
+      H_hostile and H_control approved line by line and frozen by Andrej Ristić on 2026-09-19;
+      P, M and MB (hostile and control) approved and frozen by Dhiraj Sah on 2026-09-23.
+      Record: docs/APPROVAL_ladders_v1.md.
+    runs: all runs from 2026-09-23 to 2026-10-14 (Technical Report 1)
+    files:
+      H_control:
+        file: ladders/H_control.yaml
+        version: 1
+        content_sha256: c6b3b5782935733141f4766d96d7fe81fb08f8e394f8ba2beea727067c4361f0
+        file_sha256: 9ec667f3a3dd11895c4b627bf0e3835866df697c0d6942d773886d9c8d93057c
+      H_hostile:
+        file: ladders/H_hostile.yaml
+        version: 1
+        content_sha256: 84d968d49083a766bc986b139ebb785c336801c04448da974f722a0729ae2178
+        file_sha256: e6361b76c1d55efd5b4e73e5f25608fb976fe421a2100b98b71a5b1b3a310b8e
+      MB_control:
+        file: ladders/MB_control.yaml
+        version: 1
+        content_sha256: fbbffdfa321db3f7226f78b764d3b0ac88f23802a53af5eea56bf38fa5df6201
+        file_sha256: 572578647fe29a06088d198eedcabffa5683db7d17cda5bb239c31dcdcaa251c
+      MB_hostile:
+        file: ladders/MB_hostile.yaml
+        version: 1
+        content_sha256: 903b0b2a7754629c7eab076fbf100a6322ec3a5c50553439f83e75f5da5f2196
+        file_sha256: c73624756c997d6ac591bf328e83b7cd0fd8f62f83d11d44b17154acbb31415c
+      M_control:
+        file: ladders/M_control.yaml
+        version: 1
+        content_sha256: aaafd695884afd35f4ca740a7f355e9e8cb2302c7b5266458b15db88331c8da3
+        file_sha256: cab0fbacb94d615e42947377a91c64af4fae5009f9493b515279ca25cf01b63c
+      M_hostile:
+        file: ladders/M_hostile.yaml
+        version: 1
+        content_sha256: f0ae5d60ee14e090c8a685c6329b1ba3e6f99cb6071e13a73b702fb7b4c12c54
+        file_sha256: c0d0bd40d4eb8604e1d6e8f65fa635b84cc14199731dee59392cd01141bfa1ef
+      P_control:
+        file: ladders/P_control.yaml
+        version: 1
+        content_sha256: 7dc19dbe70e8129b3cb76d8f677775c0f49971ea5a85ca9a34a2e0f0dedc3a7f
+        file_sha256: 6eeaa8a9c47e83ecbb03c42bf62d4a0b9c88c647c07c3e030781a24a47107c2e
+      P_hostile:
+        file: ladders/P_hostile.yaml
+        version: 1
+        content_sha256: 2a336c2f8e6df1837bc898bdfb77447770b0f1c594274436606221820f576af4
+        file_sha256: 7bb5951ec06bf798fa1bf13bb22d676468fe1d130879eced4e6ad953b6af0953

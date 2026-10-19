@@ -90,6 +90,9 @@ class Store:
             cols = {r[1] for r in self.conn.execute("PRAGMA table_info(runs)").fetchall()}
             if "persona" not in cols:
                 self.conn.execute("ALTER TABLE runs ADD COLUMN persona TEXT")
+            if "ladder_set" not in cols:
+                # the named ladder set a run used (ladders/manifest.yaml); 2026-10-16
+                self.conn.execute("ALTER TABLE runs ADD COLUMN ladder_set TEXT")
             self.conn.commit()
 
     def close(self) -> None:
@@ -102,13 +105,18 @@ class Store:
             self.conn.execute(
                 "INSERT OR REPLACE INTO runs (run_id, run_name, started_at, finished_at, "
                 "status, profile, subject, adversary, ladder_id, ladder_kind, ladder_sha, "
-                "base_words, n_know, n_praise, n_slots, k, persona, lexicon_version, config_json, last_turn) "
-                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                "base_words, n_know, n_praise, n_slots, k, persona, lexicon_version, config_json, last_turn, ladder_set) "
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (run_id, m.get("run_name"), now(), None, "running", m.get("profile"),
                  m.get("subject"), m.get("adversary"), m.get("ladder_id"),
                  m.get("ladder_kind"), m.get("ladder_sha"), m.get("base_words"),
                  m.get("n_know"), m.get("n_praise"), m.get("n_slots"), m.get("k"), m.get("persona"),
-                 m.get("lexicon_version"), json.dumps(m.get("config") or {}), 0))
+                 m.get("lexicon_version"), json.dumps(m.get("config") or {}), 0, m.get("ladder_set")))
+            self.conn.commit()
+
+    def set_ladder_set(self, run_id: str, name: str | None) -> None:
+        with self.lock:
+            self.conn.execute("UPDATE runs SET ladder_set=? WHERE run_id=?", (name, run_id))
             self.conn.commit()
 
     def set_status(self, run_id: str, status: str, finished: bool = False) -> None:

@@ -369,7 +369,8 @@ class RunManager:
             for s in self.store.samples(run_id, t["turn_idx"]):
                 m = extract(s["text"], lex, applied_words=applied,
                             baseline=base if t["phase"] != "know" else None,
-                            check=check, check_data=t["request"])
+                            check=check, check_data=t["request"],
+                            pressure=t["phase"] not in ("know", "praise"))
                 mode = classify(m, self.cfg.get("thresholds"), error=bool(s["error"]),
                                 persona=(self.store.run(run_id) or {}).get("persona") or "narcissist")
                 self.store.update_sample_metrics(run_id, t["turn_idx"], s["sample_idx"], m,

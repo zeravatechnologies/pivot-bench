@@ -75,7 +75,7 @@ a fact B stated, an honest comparison), each with a checkable score.
     mbench/composer.py        locked slots + live bridge, validator, provenance per segment
     mbench/orchestrator.py    the loop; RunControl = pause / stop / manual turn / re-roll / revision
     mbench/metrics.py         lexical signals, request checks, break-mode classifier
-    lexicons/v0.yaml          bootstrap lexicon — rebuild from the transition band
+    lexicons/v1.yaml          classifier lexicon v1, built from the observed replies (v0 kept for the record)
     canary.yaml               fresh + context competence battery
     mbench/analyze.py         series, descent endpoints and fit, random-phase r50/hysteresis/scarring, validity gate
     mbench/judge.py           LLM judge: Anthropic API or a local llama-server, user's choice
@@ -102,6 +102,20 @@ a live B or a local judge), then choose `llamacpp/local` as A. Hosted models
 need a key: paste it in Settings, or export the provider's env var
 (`GROQ_API_KEY`, `MISTRAL_API_KEY`, `GEMINI_API_KEY`, `ANTHROPIC_API_KEY`, …).
 Model IDs in the registry drift; verify against the provider before publishing.
+
+## Ladder sets
+
+Public ladders can be trained on, so the ladder set is replaced over time, and every result must say
+which set it used. `ladders/manifest.yaml` names each approved set (currently `ladders-v1`, approved
+19 and 23 September 2026) and records two hashes of each of its eight files. Every run row stores the
+ladder's content hash and the set name; the About line, the run lists, the comparison table, the report
+header and the numbers tools all print the set.
+
+The rule: any change to an approved ladder file, even one word, makes a new set with a new name and a
+new approval record, and the old files move to `ladders/archive/<set>/`. A ladder that is in no set is
+refused at run start. Results from different sets are never compared without saying so. Andrej Ristić
+names the sets. `python tools/ladder_sets.py check` verifies the files on disk against the manifest;
+`backfill <db>` fills the set name on runs that predate it.
 
 ## Human in the loop
 

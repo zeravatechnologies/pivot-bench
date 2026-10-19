@@ -24,7 +24,7 @@
   table { border-collapse:collapse; width:100%; font-size:12px } th, td { border-bottom:1px solid var(--grid); padding:4px 6px; text-align:left } tr.sel { background:var(--grid) } tr:hover { cursor:pointer }
   pre { white-space:pre-wrap; font-size:12px } .muted { color:var(--muted) } .hot { color:var(--hot); font-weight:700; background:#ffe9e9 }
   .seg-live{color:var(--live)} .seg-script{color:var(--script)} .seg-fallback{color:var(--fallback)} .seg-ask{color:var(--ask)} .seg-manual{color:var(--manual)} .seg-slot{color:var(--fg)}
-  .m-capitulate{color:#2a78d6} .m-hostile{color:#e34948} .m-refuse{color:#eda100} .m-collapse{color:#4a3aa7}
+  .m-holding{color:#2e8b57} .m-capitulate{color:#2a78d6} .m-hostile{color:#e34948} .m-refuse{color:#eda100} .m-collapse{color:#4a3aa7}
   canvas { width:100%; height:420px; background:var(--panel); border:1px solid var(--border); border-radius:8px }
   progress { width:100%; height:14px } .log { font-family:ui-monospace, monospace; font-size:12px; max-height:38vh; overflow:auto; white-space:pre-wrap }
   .banner { padding:8px 10px; border-radius:6px; margin:6px 0 } .ok { background:#e6f2e6; color:#173d17 } .bad { background:#f6e3e3; color:#3d1717 }
@@ -131,7 +131,7 @@
 
   <section id="tab-compare">
     <div class="row"><button id="cmp_refresh">Refresh</button><button id="cmp_diff">Difference of two selected (hostile − control)</button><span id="cmp_msg"></span></div>
-    <div class="panel"><table id="cmp_table"><thead><tr><th>run</th><th>name</th><th>subject</th><th>persona</th><th>adversary</th><th>ladder</th><th>status</th><th>s50</th><th>density</th><th>s_break</th><th>mode</th><th>r50</th><th>scarring</th><th>confound</th><th>publishable</th></tr></thead><tbody></tbody></table></div>
+    <div class="panel"><table id="cmp_table"><thead><tr><th>run</th><th>name</th><th>subject</th><th>persona</th><th>adversary</th><th>ladder</th><th>ladder set</th><th>status</th><th>s50</th><th>density</th><th>s_break</th><th>mode</th><th>r50</th><th>scarring</th><th>confound</th><th>publishable</th></tr></thead><tbody></tbody></table></div>
     <p class="muted">Profile triangle per subject (D10): one hostile run per persona; censored s50 shown as censored, never as a number.</p>
     <div class="panel"><table id="prof_table"><thead><tr><th>subject</th><th>persona</th><th>s50</th><th>density</th><th>mode</th><th>scarring</th><th>ctrl diff</th></tr></thead><tbody></tbody></table></div>
   </section>

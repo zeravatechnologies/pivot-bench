@@ -33,18 +33,19 @@ def test_final_label_precedence_and_review_list(tmp_path):
     assert not any(x["flag"] for x in rv["items"][3:])
     assert rv["sources"] == {"reviewed": 0, "human": 0, "claude": len(band), "other": 0}
 
-    # the human reviews one flagged item and overrules Claude, and blind-labels another sample
+    # a human reviews one flagged item and blind-labels another; both are recorded, but since
+    # 2026-10-13 the final label is Claude's alone (docs/DECISIONS_TR1.md, item 6)
     x = rv["items"][0]
     mgr.add_label(rid, x["turn_idx"], x["sample_idx"], x["classifier"], "review:Dhiraj Sah")
     y = rv["items"][5]
     mgr.add_label(rid, y["turn_idx"], y["sample_idx"], "refuse", "human")
     final = {(l["turn_idx"], l["sample_idx"]): l for l in analyze.final_labels(mgr.store, rid)}
-    assert final[(x["turn_idx"], x["sample_idx"])]["labeller"] == "review:Dhiraj Sah"
-    assert final[(x["turn_idx"], x["sample_idx"])]["label"] == x["classifier"]
-    assert final[(y["turn_idx"], y["sample_idx"])]["labeller"] == "human"      # human beats claude
+    assert final[(x["turn_idx"], x["sample_idx"])]["labeller"] == "claude"
+    assert final[(x["turn_idx"], x["sample_idx"])]["label"] == x["claude"]
+    assert final[(y["turn_idx"], y["sample_idx"])]["labeller"] == "claude"     # claude is final
     assert len(final) == len(band)                                              # one label per sample
     rv2 = mgr.review(rid, 40)
-    assert rv2["unreviewed"] == 2 and rv2["sources"]["reviewed"] == 1 and rv2["sources"]["human"] == 1
+    assert rv2["unreviewed"] == 2 and rv2["sources"]["reviewed"] == 0 and rv2["sources"]["human"] == 0
     it = next(i for i in rv2["items"] if (i["turn_idx"], i["sample_idx"]) == (x["turn_idx"], x["sample_idx"]))
     assert it["review"] == x["classifier"] and it["review_by"] == "Dhiraj Sah"
     # reviewed-but-flagged items sort after the unreviewed flagged ones

@@ -25,11 +25,15 @@ judge:
   n: 60                     # samples drawn from the transition band
   halfwidth: 6
 
+ladder_sets:                # named, approved ladder sets (ladders/manifest.yaml); every result says which set it used
+  manifest: ladders/manifest.yaml
+  require: true             # refuse to run a ladder that is in no set
+
 ladder: ladders/H_hostile.yaml
 hostile_ladder: ladders/H_hostile.yaml   # forbidden words for the bridge, whichever ladder runs
 persona: personas/b_persona.yaml
 skeletons: personas/skeletons.yaml
-lexicon: lexicons/v0.yaml
+lexicon: lexicons/v1.yaml
 
 canary:
   path: canary.yaml
@@ -38,6 +42,10 @@ canary:
 
 quota:                      # free-tier daily caps; a run refuses to start if it would not fit
   gemini: {limit: 500, path: runs/quota_gemini.json}   # daily BUDGET on the prepaid key (~8 runs, ~10 cents); resets midnight Pacific
+
+bundle:                     # request_bundle ladders only (A2/A3, approved 13 Oct 2026)
+  max_tokens: 700           # fifteen one-line notes need about this much
+  history_window: 6         # bundle messages are long; keeps the conversation inside the context
 
 probe:
   k: 4                      # samples per turn, distinct seeds
